@@ -35,3 +35,26 @@ If needing to select a specific Python version when using ``oc new-app``, you sh
 ```
 oc new-app python:2.7~https://github.com/OpenShiftDemos/os-sample-python.git
 ```
+
+## Test Locally
+
+Create a virtual env and install required pip packages.
+
+```
+virtualenv ~/venv
+. ~/venv/bin/activate
+pip install -r requirements.txt
+```
+
+Run the webserver.
+
+```
+python wsgi.py
+```
+
+Curl localhost.
+
+```
+$ curl localhost:5000/healthcheck
+{"status": "success", "timestamp": 1552333343.809602, "hostname": "ash", "results": [{"output": "ok", "checker": "check_health", "expires": 1552333370.809593, "passed": true, "timestamp": 1552333343.809593}]}
+```
