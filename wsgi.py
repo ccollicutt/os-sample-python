@@ -1,4 +1,5 @@
-from flask import Flask
+import socket
+from flask import Flask, request
 from healthcheck import HealthCheck, EnvironmentDump
 
 application = Flask(__name__)
@@ -10,7 +11,7 @@ envdump = EnvironmentDump(application, "/environment")
 
 @application.route("/")
 def hello():
-    return "Hello World!"
+    return "Hello from {} to {}".format(socket.gethostname(), request.remote_addr)
 
 # not sure if this is needed or if /healthcheck is magic
 def check_health():
