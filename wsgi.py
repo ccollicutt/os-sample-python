@@ -15,7 +15,7 @@ try:
     application.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
     application.config['MYSQL_PASSWORD']= os.environ.get('MYSQL_PASSWORD')
     application.config['MYSQL_DB']= os.environ.get('MYSQL_DATABASE')
-    application.config['MYSQL_SERVICE_HOST']= os.environ.get('MYSQL_SERVICE_HOST')
+    application.config['MYSQL_HOST']= os.environ.get('MYSQL_HOST')
 except:
     mysql_backend = False
 
