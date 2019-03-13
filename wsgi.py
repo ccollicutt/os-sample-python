@@ -58,7 +58,7 @@ def mysql_health():
             mysql_msg = "MySQL connection succeeded"
         except:
             mysql_healthy = False
-            mysql_msq = "MySQL connection failed"
+            mysql_msg = "MySQL connection failed"
     else:
         mysql_healthy = True 
         mysql_msg = "No MySQL backend specified"
