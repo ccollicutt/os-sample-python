@@ -51,7 +51,7 @@ def check_health():
     return True, "ok"
 
 def mysql_health():
-    if mysql_backend:
+    if mysql_backend and application.config['MYSQL_USER']:
         try:
             cursor = mysql.connection.cursor()
             mysql_healthy = True 
