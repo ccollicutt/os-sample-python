@@ -58,3 +58,28 @@ Curl localhost.
 $ curl localhost:5000/healthcheck
 {"status": "success", "timestamp": 1552333343.809602, "hostname": "ash", "results": [{"output": "ok", "checker": "check_health", "expires": 1552333370.809593, "passed": true, "timestamp": 1552333343.809593}]}
 ```
+
+## Setup Local Database 
+
+If on Fedora.
+
+```
+sudo dnf install mariadb-server
+sudo systemctl start mariadb
+```
+
+Create db and setup user/password.
+
+```
+CREATE DATABASE os_sample_python;
+GRANT ALL PRIVILEGES ON os_sample_python.* TO 'os_sample_python'@'localhost' IDENTIFIED BY 'P@ssw0rd';
+```
+
+Setup environment variables.
+
+```
+export MYSQL_USER=os_sample_python
+export MYSQL_PASSWORD=P@ssw0rd
+export MYSQL_DATABASE=os_sample_python
+export MYSQL_SERVICE_HOST=localhost
+```

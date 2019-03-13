@@ -2,3 +2,4 @@ gunicorn
 Flask
 healthcheck
 six
+flask-mysqldb
