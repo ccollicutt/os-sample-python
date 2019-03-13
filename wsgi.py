@@ -33,11 +33,21 @@ def page_count():
     # whether or not they have been provided to the application purposely, but
     # for example MYSQL_USER is set to null: "MYSQL_USER": null
     if mysql_backend and application.config['MYSQL_USER']:
+
         try:
             cursor = mysql.connection.cursor()
         except:
             return "Connection fail"
-        cursor.execute('''SELECT counter FROM hits LIMIT 1''')
+
+        try: 
+            cursor.execute('''SELECT counter FROM hits LIMIT 1''')         
+        except:
+            cursor.execute('CREATE TABLE IF NOT EXISTS hits ( counter INT NOT NULL )')
+            cursor.execute('INSERT INTO hits VALUES(1);')
+            mysql.connection.commit()
+            return "0"           
+        
+        cursor.execute('''SELECT counter FROM hits LIMIT 1''')         
         rv = cursor.fetchone()
         cursor.execute('''UPDATE hits SET counter = counter + 1''')
         mysql.connection.commit()
