@@ -43,7 +43,7 @@ def page_count():
             cursor.execute('''SELECT counter FROM hits LIMIT 1''')         
         except:
             cursor.execute('CREATE TABLE IF NOT EXISTS hits ( counter INT NOT NULL )')
-            cursor.execute('INSERT INTO hits VALUES(1);')
+            cursor.execute('INSERT INTO hits VALUES(1)')
             mysql.connection.commit()
             return "0"           
         
