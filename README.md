@@ -73,6 +73,7 @@ Create db and setup user/password.
 ```
 CREATE DATABASE os_sample_python;
 GRANT ALL PRIVILEGES ON os_sample_python.* TO 'os_sample_python'@'localhost' IDENTIFIED BY 'P@ssw0rd';
+USE os_sample_python;
 ```
 
 Setup environment variables.
@@ -80,6 +81,14 @@ Setup environment variables.
 ```
 export MYSQL_USER=os_sample_python
 export MYSQL_PASSWORD=P@ssw0rd
-export MYSQL_DATABASE=os_sample_python
-export MYSQL_SERVICE_HOST=localhost
+export MYSQL_DB=os_sample_python
+export MYSQL_HOST=localhost
+```
+
+## Delete Resources 
+
+```
+# Ensure you are in the expected project 
+oc delete all --all
+oc delete secret os-sample-python-mysql
 ```
