@@ -1,11 +1,11 @@
 import socket
 from flask import Flask, request
 from healthcheck import HealthCheck, EnvironmentDump
+# Docs: https://flask-mysqldb.readthedocs.io/en/latest/
 from flask_mysqldb import MySQL
 import os
 
 application = Flask(__name__)
-# wrap the flask app and give a heathcheck url
 health = HealthCheck(application, "/healthcheck")
 envdump = EnvironmentDump(application, "/environment")
 
@@ -14,7 +14,7 @@ mysql_backend = True
 try:
     application.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
     application.config['MYSQL_PASSWORD']= os.environ.get('MYSQL_PASSWORD')
-    application.config['MYSQL_DB']= os.environ.get('MYSQL_DATABASE')
+    application.config['MYSQL_DB']= os.environ.get('MYSQL_DB')
     application.config['MYSQL_HOST']= os.environ.get('MYSQL_HOST')
 except:
     mysql_backend = False
