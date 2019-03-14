@@ -12,6 +12,8 @@ envdump = EnvironmentDump(application, "/environment")
 # If there is a mysql backend, then use it.
 mysql_backend = True
 try:
+    # FIXME: This may always evaluate as it seems like these env vars are
+    # populated with values like ****** and null...
     application.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
     application.config['MYSQL_PASSWORD']= os.environ.get('MYSQL_PASSWORD')
     application.config['MYSQL_DB']= os.environ.get('MYSQL_DB')
@@ -31,7 +33,7 @@ def hello():
 def page_count():
     # NOTE: Strangely env vars like MYSQL_USER seem to be defaulted to something
     # whether or not they have been provided to the application purposely, but
-    # for example MYSQL_USER is set to null: "MYSQL_USER": null
+    # for example: "MYSQL_USER": null
     if mysql_backend and application.config['MYSQL_USER']:
 
         try:
@@ -39,6 +41,7 @@ def page_count():
         except:
             return "Connection fail"
 
+        # If the table doesn't exist, then create it
         try: 
             cursor.execute('''SELECT counter FROM hits LIMIT 1''')         
         except:
@@ -47,6 +50,7 @@ def page_count():
             mysql.connection.commit()
             return "0"           
         
+        # FIXME: Should this be done here? Already done in try above
         cursor.execute('''SELECT counter FROM hits LIMIT 1''')         
         rv = cursor.fetchone()
         cursor.execute('''UPDATE hits SET counter = counter + 1''')
